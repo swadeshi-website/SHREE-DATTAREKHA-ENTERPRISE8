@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Products – Shree Dattarekha Enterprise</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Brand image size */
+    .brand-img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      border-radius: 6px;
+      display: inline-block;
+      vertical-align: middle;
+      background-color: transparent; /* blank if missing */
+    }
+
+    /* Quantity buttons (if CSS not already present in style.css) */
+    .qty-control {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .qty-control button {
+      width: 28px;
+      height: 28px;
+      border: none;
+      background-color: var(--red);
+      color: red;
+      font-weight: bold;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .qty-control input {
+      width: 48px;
+      text-align: center;
+      border-radius: 4px;
+      border: 1px solid var(--gold);
+      padding: 2px 4px;
+    }
+
+    /* Subgroup (Shree Maya) buttons */
+    .sma-subgroups {
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin:8px 0 12px 0;
+    }
+    .sma-subgroup-btn {
+      padding:6px 10px;
+      border-radius:8px;
+      border:1px solid rgba(0,0,0,0.08);
+      cursor:pointer;
+      background:pink;
+      font-weight:700;
+    }
+    .sma-subgroup-btn.active {
+      background: orange;
+      color: pink;
+    }
+  </style>
+</head>
+<body class="dark">
+  <!-- Theme toggle -->
+  <button id="themeToggle" class="theme-toggle" title="Switch theme">🌙</button>
+
+  <header class="navbar">
+    <h1 class="page-title">Select Products</h1>
+  </header>
+
+  <!-- Shop details -->
+  <section class="shop-info fade-in">
+    <h2>Your Details</h2>
+    <form id="shopForm">
+      <div class="form-group">
+        <label>Date:</label>
+        <input type="date" id="orderDate" required />
+      </div>
+      <div class="form-group">
+        <label>Shop Name:</label>
+        <input type="text" id="shopName" placeholder="Enter shop name" required />
+      </div>
+      <div class="form-group">
+        <label>Contact Number:</label>
+        <input type="tel" id="contactNumber" placeholder="Enter number" required />
+      </div>
+      <div class="form-group">
+        <label>Address:</label>
+        <textarea id="address" placeholder="Enter address" required></textarea>
+      </div>
+
+      <div class="form-group" style="display:flex;gap:.5rem;align-items:center;">
+        <button type="button" id="fetchLocationBtn" class="btn-outline">📍 Fetch Location</button>
+        <div id="locationDisplay" style="font-size:0.95rem;color:var(--gold);">No location saved</div>
+      </div>
+    </form>
+  </section>
+
+  <!-- Brand buttons -->
+  <section class="brand-select fade-in">
+    <h2>Choose a Brand</h2>
+    <div class="brand-buttons">
+      <button class="brand-btn" data-brand="GITS">GITS</button>
+      <button class="brand-btn" data-brand="SAWAI">SAWAI</button>
+      <button class="brand-btn" data-brand="MOM">M.O.M</button>
+      <button class="brand-btn" data-brand="BLG">BLG</button>
+      <button class="brand-btn" data-brand="SHREE_MAYA_AGARBATTI">Shree Maya Agarbatti</button>
+      <button class="brand-btn" data-brand="TOP_RAMEN">TOP RAMEN</button>
+    </div>
+  </section>
+
+  <!-- Product list -->
+  <section id="productList" class="product-list fade-in">
+    <!-- Products will be injected by script.js -->
+  </section>
+
+  <!-- Proceed button -->
+  <div class="bottom-bar fade-in">
+    <button id="proceedOrder" class="btn-large" disabled>🧾 Proceed to Order</button>
+  </div>
+
+  <!-- Fixed Back button -->
+  <button class="back-btn" onclick="history.back()">⬅ Back</button>
+
+  <!-- main script -->
+  <script src="script.js"></script>
+
+  <!-- small helper to inject brand images into static buttons (keeps UI consistent) -->
+  <script>
+    // Brand images mapping (keeps parity with script.js mapping)
+    const BRAND_IMAGES = {
+      'GITS': 'images/gits.png',
+      'SAWAI': 'images/sawai.png',
+      'MOM': 'images/mom.png',
+      'BLG': 'images/blg.png',
+      'SHREE_MAYA_AGARBATTI': 'images/shree_maya.png',
+      'TOP_RAMEN': 'images/top_ramen.png'
+    };
+
+    function createBrandImg(brand) {
+      const img = document.createElement('img');
+      img.className = 'brand-img';
+      if (BRAND_IMAGES[brand]) {
+        img.src = BRAND_IMAGES[brand];
+        img.alt = brand;
+        img.onerror = () => {
+          img.style.visibility = 'hidden';
+        };
+      } else {
+        img.style.visibility = 'hidden';
+      }
+      return img;
+    }
+
+    // Inject brand images into buttons (if buttons are present)
+    document.querySelectorAll('.brand-btn').forEach(btn => {
+      const brand = btn.dataset.brand;
+      const img = createBrandImg(brand);
+      btn.insertBefore(img, btn.firstChild);
+      btn.style.display = 'flex';
+      btn.style.alignItems = 'center';
+      btn.style.gap = '8px';
+    });
+  </script>
+</body>
+</html>
