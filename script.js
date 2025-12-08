@@ -257,9 +257,7 @@ const BRANDS = {
 /* -----------------------------
    App state
 -----------------------------*/
-let cart = [];        // array of { id, name, qty, price, brand }
-let shopData = {};    // saved shop form details + location
-
+let cart = [];        // array of { id, name, qty, price, brand }
 /* -----------------------------
    Small utility functions
 -----------------------------*/
