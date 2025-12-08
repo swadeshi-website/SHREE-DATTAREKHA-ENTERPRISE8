@@ -130,41 +130,6 @@
   <script src="script.js"></script>
 
   <!-- small helper to inject brand images into static buttons (keeps UI consistent) -->
-  <script>
-    // Brand images mapping (keeps parity with script.js mapping)
-    const BRAND_IMAGES = {
-      'GITS': 'images/gits.png',
-      'SAWAI': 'images/sawai.png',
-      'MOM': 'images/mom.png',
-      'BLG': 'images/blg.png',
-      'SHREE_MAYA_AGARBATTI': 'images/shree_maya.png',
-      'TOP_RAMEN': 'images/top_ramen.png'
-    };
-
-    function createBrandImg(brand) {
-      const img = document.createElement('img');
-      img.className = 'brand-img';
-      if (BRAND_IMAGES[brand]) {
-        img.src = BRAND_IMAGES[brand];
-        img.alt = brand;
-        img.onerror = () => {
-          img.style.visibility = 'hidden';
-        };
-      } else {
-        img.style.visibility = 'hidden';
-      }
-      return img;
-    }
-
-    // Inject brand images into buttons (if buttons are present)
-    document.querySelectorAll('.brand-btn').forEach(btn => {
-      const brand = btn.dataset.brand;
-      const img = createBrandImg(brand);
-      btn.insertBefore(img, btn.firstChild);
-      btn.style.display = 'flex';
-      btn.style.alignItems = 'center';
-      btn.style.gap = '8px';
-    });
-  </script>
+ 
 </body>
 </html>
