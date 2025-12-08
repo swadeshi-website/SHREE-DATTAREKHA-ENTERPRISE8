@@ -316,6 +316,22 @@ function loadCartFromStorage() {
   try { cart = JSON.parse(localStorage.getItem('cart') || '[]') || []; } catch (e) { cart = []; }
 }
 
+function saveShopInfo() {
+  // keep previously saved location if present
+  const existing = (() => {
+    try { return JSON.parse(localStorage.getItem('shopData') || '{}') || {}; } catch(e){ return {}; }
+  })();
+
+  const data = {
+    date: document.getElementById('orderDate')?.value || '',
+    shopName: document.getElementById('shopName')?.value || '',
+    contact: document.getElementById('contactNumber')?.value || '',
+    address: document.getElementById('address')?.value || '',
+    location: existing.location || shopData.location || null
+  };
+  shopData = data;
+  try { localStorage.setItem('shopData', JSON.stringify(data)); } catch(e) {}
+}
 
 function loadShopInfoToForm() {
   const data = (() => {
