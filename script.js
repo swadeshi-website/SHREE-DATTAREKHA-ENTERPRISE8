@@ -181,37 +181,79 @@ const BRANDS = {
      NEW BRAND: SHREE MAYA AGARBATTI
      Auto-generated products: each subsection price is used for all fragrances
   ============================*/
-  'SHREE_MAYA_AGARBATTI': (() => {
-    const fragrances = [
-      'Kasturi','Luxury','Nature Paradise','Silicon','Rose','Kewda','Mogra',
-      'Shree Maya','Keshar Chandan','Desire','Oodh Loban','Fantasia',
-      'Yoga 3 in 1','Tu Hi','Navkar','Rajnigandha','Chandan Woods',
-      'Gugal Kapoor','Melody','Pianapple','Man Mohan'
-    ];
+'SHREE_MAYA_AGARBATTI': (() => {
 
-    const sections = [
-      { name: 'Agarbatti 10/-', price: 10 },
-      { name: 'Agarbatti 5/-', price: 5 },
-      { name: 'Agarbatti 30/-', price: 30 },
-      { name: 'Zipper 75/-', price: 75 },
-      { name: 'Dhup Dry 35/-', price: 35 },
-      { name: 'Dhup Wet 30/-', price: 30 },
-      { name: 'Agarbatti Bag 150/-', price: 150 },
-      { name: 'Zipper Jumbo 150/-', price: 150 }
-    ];
+  const fragrances = [
+    'Kasturi','Luxury','Nature Paradise','Silicon','Rose','Kewda','Mogra',
+    'Shree Maya','Keshar Chandan','Desire','Oodh Loban','Fantasia',
+    'Yoga 3 in 1','Tu Hi','Navkar','Rajnigandha','Chandan Woods',
+    'Gugal Kapoor','Melody','Pianapple','Man Mohan'
+  ];
 
-    const products = [];
-    sections.forEach(sec => {
-      fragrances.forEach(f => {
-        const id = `SMA-${sec.price}-${f.replace(/\s+/g,'_').toUpperCase()}`;
-        const name = `${f} (${sec.name})`;
-        products.push({ id, name, price: sec.price, brand: 'SHREE_MAYA_AGARBATTI' });
-      });
+  // Regular sections
+  const sections = [
+    { name: 'Agarbatti Box 75/-', price: 75 },
+    { name: 'Agarbatti 30/-', price: 30 },
+    { name: 'Zipper 75/-', price: 75 },
+    { name: 'Dhup Dry 35/-', price: 35 },
+    { name: 'Dhup Wet 30/-', price: 30 },
+    { name: 'Agarbatti Bag 150/-', price: 150 },
+    { name: 'Zipper Jumbo 150/-', price: 150 }
+  ];
+
+  // Piteshwari will act as its own “fragrance × section”
+  const piteshwari = [
+    { name: 'Piteshwari 10/-', price: 10, fragrances: ['Piteshwari'] },
+    { name: 'Piteshwari 25/-', price: 25, fragrances: ['Piteshwari'] }
+  ];
+
+  // Small sections
+  const smallSections = [
+    { name: 'Agarbatti 5/-', price: 5 },
+    { name: 'Agarbatti 10/-', price: 10 }
+  ];
+
+  const smallProducts = [
+    "Mix",
+    "Navkar",
+    "Shree Maya"
+  ];
+
+  const products = [];
+
+  // Generate normal sections
+  sections.forEach(sec => {
+    fragrances.forEach(f => {
+      const id = `SMA-${sec.price}-${f.replace(/\s+/g,'_').toUpperCase()}`;
+      const name = `${f} (${sec.name})`;
+      products.push({ id, name, price: sec.price, brand: 'SHREE_MAYA_AGARBATTI' });
     });
-    return products;
-  })()
-};
+  });
 
+  // Generate Piteshwari sections
+  piteshwari.forEach(sec => {
+    sec.fragrances.forEach(f => {
+      const id = `SMA-PITESHWARI-${sec.price}-${f.replace(/\s+/g,'_').toUpperCase()}`;
+      const name = `${f} (${sec.name})`;
+      products.push({ id, name, price: sec.price, brand: 'SHREE_MAYA_AGARBATTI' });
+    });
+  });
+
+  // Generate small sections
+  smallSections.forEach(sec => {
+    smallProducts.forEach(sp => {
+      const id = `SMA-SMALL-${sec.price}-${sp.replace(/\s+/g,'_').toUpperCase()}`;
+      const name = `${sp} (${sec.name})`;
+      products.push({ id, name, price: sec.price, brand: 'SHREE_MAYA_AGARBATTI' });
+    });
+  });
+
+  return products;
+
+})()
+
+
+};
 /* -----------------------------
    App state
 -----------------------------*/
