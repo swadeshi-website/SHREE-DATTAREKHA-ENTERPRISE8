@@ -1,4 +1,4 @@
-yu/* ===================================================
+/* ===================================================
    FINAL script.js - Shree Dattarekha Enterprise
    (Full working version — updated with Shree Maya Agarbatti
     subgroup UI and +/- qty controls)
@@ -257,7 +257,9 @@ const BRANDS = {
 /* -----------------------------
    App state
 -----------------------------*/
-let cart = [];        // array of { id, name, qty, price, brand }
+let cart = [];        // array of { id, name, qty, price, brand }
+let shopData = {};    // saved shop form details + location
+
 /* -----------------------------
    Small utility functions
 -----------------------------*/
@@ -322,16 +324,8 @@ function saveShopInfo() {
     try { return JSON.parse(localStorage.getItem('shopData') || '{}') || {}; } catch(e){ return {}; }
   })();
 
-  function getFormattedDate() {
-    const d = new Date();
-    const day = String(d.getDate()).padStart(2, "0");
-    const month = String(d.getMonth() + 1).padStart(2, "0");
-    const year = String(d.getFullYear()).slice(-2); // YY format
-    return `${day}/${month}/${year}`;
-}
-
-const date = getFormattedDate();||
- '',
+  const data = {
+    date: document.getElementById('orderDate')?.value || '',
     shopName: document.getElementById('shopName')?.value || '',
     contact: document.getElementById('contactNumber')?.value || '',
     address: document.getElementById('address')?.value || '',
@@ -591,7 +585,7 @@ function initProductsPage() {
   if (!productListEl) return;
 
   // load saved state
-  loadShopInfoToForm();
+  
   loadCartFromStorage();
 
   // ensure search & sort exist
