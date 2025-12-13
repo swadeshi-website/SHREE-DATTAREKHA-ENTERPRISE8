@@ -1155,9 +1155,12 @@ function generateExcelAndWhatsApp(){
     lines.push('Items:');
     cart.forEach((c,i) => lines.push(`${i+1}. ${c.name} x ${c.qty} (₹${c.price})`));
     const msg = lines.join('\n');
-    const phone = '919503984711'; // change to your number if needed
-    const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
-    window.open(url, '_blank');
+
+    const phones = ['919503984711', '918380816150']; // BOTH NUMBERS ADDED
+    phones.forEach(phone => {
+      const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+      window.open(url, '_blank');
+    });
   });
 }
 
@@ -1202,3 +1205,4 @@ window.__SDE_debug = {
   setCart: (c) => { cart = c; saveCart(); },
   clearCart: () => { cart = []; saveCart(); }
 };
+
